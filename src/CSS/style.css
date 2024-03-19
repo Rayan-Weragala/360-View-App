@@ -1,0 +1,12 @@
+.custom-icon-button:hover {
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+.audio-player {
+  display: none;
+}
+
+.main-container {
+  min-height: 100vh;
+}
