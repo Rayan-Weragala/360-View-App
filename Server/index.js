@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const app = express();
 const cors = require("cors");
-
+const imageRoutes = require("./Routes/imageRoutes");
 dotenv.config();
 
 const PORT = process.env.PORT || 8080;
@@ -16,6 +16,9 @@ app.use(
     credentials: true,
   })
 );
+
+app.use("/api/images", imageRoutes);
+
 
 const URL = process.env.MONGODB_URL;
 mongoose.connect(URL, {
@@ -32,3 +35,6 @@ connection.once("open", () => {
 app.listen(PORT, () => {
   console.log(`\nServer is running on port ${PORT}`);
 });
+
+//import model
+
