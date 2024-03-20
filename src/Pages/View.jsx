@@ -5,6 +5,7 @@ import image from "../images/photo2.jpg";
 const View = () => {
   return (
     <div className="container">
+      
       <SphereViewer imageUrl={image} />
     </div>
   );

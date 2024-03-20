@@ -9,7 +9,7 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/view" element={<View />}></Route>
+          <Route path="/view/:id" element={<View />}></Route>
           <Route path="add" element={<AddvirtualTour />}></Route>
           <Route path="box" element={<ImageBox />}></Route>
         </Routes>

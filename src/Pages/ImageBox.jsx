@@ -1,38 +1,40 @@
 import React, { useState, useEffect } from "react";
 import "../CSS/style.css";
+import { Link } from "react-router-dom";
 
 const ImageBox = () => {
   const [images, setImages] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("http://localhost:8080/api/images/all");
-        const data = await response.json();
-        console.log(data);
-        
-        const imagePaths = data.map((item) => {
-          if (item.imagePaths && item.imagePaths.length > 0) {
-            return item.imagePaths[0]; 
-          } else {
-            return item.imagePath; 
-          }
-        });
-        setImages(imagePaths);
-      } catch (error) {
-        console.error("Error fetching data", error);
-      }
-    };
-    fetchData();
-  }, []);
+ useEffect(() => {
+   const fetchData = async () => {
+     try {
+       const response = await fetch("http://localhost:8080/api/images/all");
+       const data = await response.json();
+       console.log(data);
+
+       const imagesData = data.map((item) => ({
+         _id: item._id,
+         imagePath:
+           item.imagePaths && item.imagePaths.length > 0
+             ? item.imagePaths[0]
+             : item.imagePath,
+       }));
+       setImages(imagesData);
+     } catch (error) {
+       console.error("Error fetching data", error);
+     }
+   };
+   fetchData();
+ }, []);
+
 
   return (
     <div className="box-container">
-      {images.map((imagePath, index) => (
+      {images.map((image, index) => (
         <div className="box" key={index}>
-        
-          <img
-            src={`http://localhost:8080/${imagePath}`} alt=""/>
+          <Link to={`/view/${image._id}`}>
+            <img src={`http://localhost:8080/${image.imagePath}`} alt="" />
+          </Link>
         </div>
       ))}
     </div>
