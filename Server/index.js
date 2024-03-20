@@ -5,12 +5,10 @@ const app = express();
 const cors = require("cors");
 const imageRoutes = require("./Routes/imageRoutes");
 const getImage = require("./Routes/getImage");
-const getAll  = require("./Routes/getAll")
+const getAll = require("./Routes/getAll");
 dotenv.config();
 
 const PORT = process.env.PORT || 8080;
-
-
 
 app.use(express.json());
 app.use(
@@ -22,8 +20,8 @@ app.use(
 );
 
 app.use("/api/images", imageRoutes);
-//app.use("/api/images", getImage);
-app.use("/api/images", getAll);
+app.use("/api/images", getImage);
+app.use("/api/image", getAll);
 
 const URL = process.env.MONGODB_URL;
 mongoose.connect(URL, {

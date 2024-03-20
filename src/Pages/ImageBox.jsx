@@ -8,7 +8,7 @@ const ImageBox = () => {
  useEffect(() => {
    const fetchData = async () => {
      try {
-       const response = await fetch("http://localhost:8080/api/images/all");
+       const response = await fetch("http://localhost:8080/api/image/all");
        const data = await response.json();
        console.log(data);
 
