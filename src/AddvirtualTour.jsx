@@ -2,22 +2,21 @@ import React, { useState } from "react";
 import axios from "axios";
 
 const AddvirtualTour = () => {
-  const [images, setImages] = useState([]);
+  const [selectedFiles, setSelectedFiles] = useState([]);
 
   const handleChange = (event) => {
-    const selectedFiles = Array.from(event.target.files);
-    setImages(selectedFiles);
+    const newFiles = Array.from(event.target.files);
+    setSelectedFiles((prevFiles) => [...prevFiles, ...newFiles]);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    const formData = new FormData();
-    images.forEach((image, index) => {
-      formData.append("images", image); // Append images with the same key
-    });
-
     try {
+      const formData = new FormData();
+      selectedFiles.forEach((file) => {
+        formData.append("images", file);
+      });
+
       const response = await axios.post(
         "http://localhost:8080/api/images/upload",
         formData,
@@ -27,24 +26,22 @@ const AddvirtualTour = () => {
           },
         }
       );
-      console.log("Images uploaded:", response.data);
-      
-      // Reset images state if needed
-      setImages([]);
+      console.log("Response:", response.data);
+      // Clear selected files state after successful upload if needed
+      setSelectedFiles([]);
     } catch (error) {
-      console.error("Error uploading images:", error);
+      console.error("Error:", error);
     }
   };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <h1 className="text-3xl font-bold text-teal-600 mb-4">Add Images</h1>
+      <h1 className="text-4xl font-bold text-teal-600 mb-4">Add Images</h1>
 
       <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
         <form onSubmit={handleSubmit}>
-          {/* Loop through and render multiple input fields */}
-          {[1, 2, 3, 4].map((index) => (
-            <div className="mb-4" key={index}>
+          {[1, 2, 3, 4, 5].map((index) => (
+            <div key={index} className="mb-4">
               <label
                 htmlFor={`image${index}`}
                 className="block text-gray-700 mb-2"
@@ -54,13 +51,12 @@ const AddvirtualTour = () => {
               <input
                 type="file"
                 id={`image${index}`}
-                name={`image${index}`}
                 onChange={handleChange}
                 className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-teal-500"
+                multiple // Allow multiple file selection
               />
             </div>
           ))}
-
           <button
             type="submit"
             className="bg-teal-600 text-white py-2 px-4 rounded-lg hover:bg-teal-700 focus:outline-none focus:bg-teal-700"
