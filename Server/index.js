@@ -20,8 +20,8 @@ app.use(
 );
 
 app.use("/api/images", imageRoutes);
-app.use("/api/images", getImage);
-app.use("/api/image", getAll);
+app.use("/api/image", getImage);
+app.use("/api/images", getAll);
 
 const URL = process.env.MONGODB_URL;
 mongoose.connect(URL, {
