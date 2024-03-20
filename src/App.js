@@ -1,7 +1,8 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import View from "./View";
-import AddvirtualTour from "./AddvirtualTour";
+import View from "../src/Pages/View";
+import AddvirtualTour from "../src/Pages/AddvirtualTour";
+
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
         <Routes>
           <Route path="/view" element={<View />}></Route>
           <Route path="add" element={<AddvirtualTour />}></Route>
+        
         </Routes>
       </BrowserRouter>
     </div>

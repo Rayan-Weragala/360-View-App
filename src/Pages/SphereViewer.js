@@ -8,11 +8,11 @@ import { MapPlugin } from "@photo-sphere-viewer/map-plugin";
 import "@photo-sphere-viewer/map-plugin/index.css";
 import { GalleryPlugin } from "@photo-sphere-viewer/gallery-plugin";
 import "@photo-sphere-viewer/gallery-plugin/index.css";
-import image3 from "./images/forest.jpg";
-import image4 from "./images/photo2.jpg";
-import image from "./images/photo2.jpg";
-import audio from "./music/hevisi.mp3";
-import "./CSS/style.css";
+import image3 from "../images/galle.jpg";
+import image4 from "../images/forest.jpg";
+import image from "../images/sigiriya.jpg";
+import audio from "../music/hevisi.mp3";
+import "../CSS/style.css";
 
 
 const SphereViewer = ({ imageUrl }) => {
