@@ -1,5 +1,5 @@
 // getImageById.js
-
+/*
 const express = require("express");
 const router = express.Router();
 const Image = require("../models/Image");
@@ -19,3 +19,4 @@ router.get("/:id", async (req, res) => {
 });
 
 module.exports = router;
+*/
