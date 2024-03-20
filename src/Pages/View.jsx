@@ -31,10 +31,10 @@ const View = () => {
 
   return (
     <div className="container">
-      {images.map((imagePath, index) => (
-        
-        <img key={index} src={`http://localhost:8080/${imagePath}`} alt="" />
-      ))}
+      <SphereViewer
+        imageUrl={images.length > 0 ? `http://localhost:8080/${images[0]}` : ""}
+        imagePaths={images.map((path) => `http://localhost:8080/${path}`)}
+      />
     </div>
   );
 };

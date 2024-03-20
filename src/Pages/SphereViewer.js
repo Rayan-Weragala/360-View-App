@@ -1,21 +1,17 @@
-import React, { useEffect, useRef,useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Viewer } from "@photo-sphere-viewer/core";
 import "@photo-sphere-viewer/core/index.css";
 import { AutorotatePlugin } from "@photo-sphere-viewer/autorotate-plugin";
 import { CompassPlugin } from "@photo-sphere-viewer/compass-plugin";
 import "@photo-sphere-viewer/compass-plugin/index.css";
-import { MapPlugin } from "@photo-sphere-viewer/map-plugin";
-import "@photo-sphere-viewer/map-plugin/index.css";
 import { GalleryPlugin } from "@photo-sphere-viewer/gallery-plugin";
 import "@photo-sphere-viewer/gallery-plugin/index.css";
-import image3 from "../images/galle.jpg";
-import image4 from "../images/forest.jpg";
-import image from "../images/sigiriya.jpg";
+import { MapPlugin } from "@photo-sphere-viewer/map-plugin";
+import "@photo-sphere-viewer/map-plugin/index.css";
 import audio from "../music/hevisi.mp3";
 import "../CSS/style.css";
 
-
-const SphereViewer = ({ imageUrl }) => {
+const SphereViewer = ({ imageUrl, imagePaths }) => {
   const viewerRef = useRef(null);
   const [muted, setMuted] = useState(false);
 
@@ -60,29 +56,21 @@ const SphereViewer = ({ imageUrl }) => {
           [
             MapPlugin,
             {
-              imageUrl: image,
-              center: { x: 785, y: 421 },
+              imageUrl:imageUrl,
+              center: { x: 1000, y: 1000 },
               rotation: "125deg",
               defaultZoom: 40,
             },
-          ],
+          ], 
           [
             GalleryPlugin,
             {
-              items: [
-                {
-                  id: "pano-1",
-                  name: "Panorama 1",
-                  panorama: image3,
-                  thumbnail: image3,
-                },
-                {
-                  id: "pano-2",
-                  name: "Panorama 2",
-                  panorama: image4,
-                  thumbnail: image4,
-                },
-              ],
+              items: imagePaths.map((path, index) => ({
+                id: `pano-${index}`,
+                name: `Image ${index + 1}`,
+                panorama: path,
+                thumbnail: path, 
+              })),
             },
           ],
         ],
@@ -90,7 +78,7 @@ const SphereViewer = ({ imageUrl }) => {
 
       return () => viewer.destroy();
     }
-  }, [imageUrl, muted]);
+  }, [imageUrl, imagePaths, muted]);
 
   return (
     <div
