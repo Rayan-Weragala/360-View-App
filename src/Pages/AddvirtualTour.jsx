@@ -63,6 +63,10 @@ const AddvirtualTour = () => {
           >
             Submit
           </button>
+
+          <br />
+          <br />
+          <a href="/box">Click to view tours</a>
         </form>
       </div>
     </div>
