@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import View from "./View";
 import AddvirtualTour from "./AddvirtualTour";
+
 function App() {
   return (
     <div>
