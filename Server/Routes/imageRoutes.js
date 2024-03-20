@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
   },
 });
 
-// Initialize upload
+
 const upload = multer({
   storage: storage,
   limits: { fileSize: 5 * 1024 * 1024 }, // 5MB max file size
@@ -24,7 +24,7 @@ const upload = multer({
   },
 }).array("images", 6);
 
-// Check file type
+
 function checkFileType(file, cb) {
   // Allowed extensions
   const filetypes = /jpeg|jpg|png|gif/;
@@ -45,18 +45,24 @@ router.post("/upload", (req, res) => {
     if (err) {
       res.status(400).json({ error: err });
     } else {
-      // Files uploaded successfully, now you can save the file paths or URLs to the database
+      
       const imagePaths = req.files.map((file) => file.path);
-      const promises = imagePaths.map((imagePath) => {
-        const newImage = new Image({ imagePath });
-        return newImage.save();
-      });
 
-      Promise.all(promises)
-        .then(() => res.json({ imagePaths }))
-        .catch((err) =>
-          res.status(500).json({ error: "Failed to save images to database" })
-        );
+      const newImage = new Image({ imagePaths });
+
+      // Save the Image document
+      newImage
+        .save()
+        .then((image) => {
+          res.json({
+            message:
+              "Images uploaded and saved successfully under unique ID: " +
+              image._id,
+          });
+        })
+        .catch((err) => {
+          res.status(500).json({ error: "Failed to save images to database" });
+        });
     }
   });
 });
