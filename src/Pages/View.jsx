@@ -4,29 +4,32 @@ import SphereViewer from "./SphereViewer";
 
 const View = () => {
   const [images, setImages] = useState([]);
+  const [musicPath, setMusicPath] = useState("");
   const { id } = useParams();
 
   useEffect(() => {
-    const fetchImagesById = async () => {
+    const fetchData = async () => {
       try {
         const response = await fetch(`http://localhost:8080/api/image/${id}`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch image data");
+        }
         const data = await response.json();
         console.log("API Response:", data);
 
         if (Array.isArray(data.imagePaths)) {
           setImages(data.imagePaths);
-          console.log(data.imagePaths);
         } else {
           setImages([data.imagePaths]);
-          console.log(data.imagePaths);
         }
-        
+
+        setMusicPath(data.musicPath || ""); // Set music path if available
       } catch (error) {
-        console.error("Error fetching images:", error);
+        console.error("Error fetching data:", error);
       }
     };
 
-    fetchImagesById();
+    fetchData();
   }, [id]);
 
   return (
@@ -34,6 +37,7 @@ const View = () => {
       <SphereViewer
         imageUrl={images.length > 0 ? `http://localhost:8080/${images[0]}` : ""}
         imagePaths={images.map((path) => `http://localhost:8080/${path}`)}
+        musicPath={musicPath ? `http://localhost:8080/${musicPath}` : ""}
       />
     </div>
   );
