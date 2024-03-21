@@ -1,9 +1,14 @@
 const mongoose = require("mongoose");
 const imageSchema = new mongoose.Schema({
-  imagePaths:[ {
+  imagePaths: [
+    {
+      type: String,
+      required: true,
+    },
+  ],
+  musicPath: {
     type: String,
-    required: true,
-  }],
+  },
 });
 
 const Image = mongoose.model("Image", imageSchema);
